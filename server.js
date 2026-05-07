@@ -141,7 +141,7 @@ const createMatrixRoutes = require("./routes/matrixRoutes");
 
 // ── PORT: Render injects process.env.PORT automatically ──────────────────────
 // ALWAYS use process.env.PORT in production — never hardcode.
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || "https://matrix88.onrender.com";
 
 // ── CORS: allow both local dev and production frontend ───────────────────────
 // Add your actual Render/Vercel/Netlify frontend URL here.

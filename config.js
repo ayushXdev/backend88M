@@ -16,7 +16,7 @@ module.exports = {
     uri: process.env.MONGODB_URI || "",
   },
   server: {
-    port:           toNum(process.env.SERVER_PORT, 4000),
+    port:           toNum(process.env.SERVER_PORT, "https://matrix88.onrender.com"),
     frontendOrigin: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
   },
   auth: {
