@@ -22,7 +22,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   const router = express.Router();
 
   // ── GET /api/state ───────────────────────────────────────────────────────
-  router.get("/state", requireAuth, (_req, res) => {
+  router.get("https://matrix88.onrender.com/state", requireAuth, (_req, res) => {
     const client = getTcpClient();
     const status = client.getStatus();
     return res.status(200).json({
@@ -36,7 +36,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   });
 
   // ── GET /api/settings (admin only) ───────────────────────────────────────
-  router.get("/settings", requireAdmin, async (_req, res) => {
+  router.get("https://matrix88.onrender.com/settings", requireAdmin, async (_req, res) => {
     const data = await persistence.getSettingsForApi(config.matrix);
     return res.status(200).json({
       ok: true, mongoConnected: isMongoConnected(), mongo: data.persisted !== false, ...data,
@@ -44,7 +44,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   });
 
   // ── POST /api/settings (admin only) ──────────────────────────────────────
-  router.post("/settings", requireAdmin, async (req, res) => {
+  router.post("https://matrix88.onrender.com/settings", requireAdmin, async (req, res) => {
     const saved = await persistence.saveSettings(req.body);
     if (!saved.ok) return res.status(503).json(saved);
 
@@ -65,7 +65,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   });
 
   // ── POST /api/switch (any logged-in user) ────────────────────────────────
-  router.post("/switch", requireAuth, (req, res) => {
+  router.post("https://matrix88.onrender.com/switch", requireAuth, (req, res) => {
     try {
       const input  = Number(req.body.input);
       const output = Number(req.body.output);
@@ -90,7 +90,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
    *
    * Body: { input: 2, outputs: [1,2,3,4,5,6,7,8] }
    */
-  router.post("/switch-multi", requireAuth, (req, res) => {
+  router.post("https://matrix88.onrender.com/switch-multi", requireAuth, (req, res) => {
     try {
       const input   = Number(req.body.input);
       const outputs = Array.isArray(req.body.outputs) ? req.body.outputs.map(Number) : [];
@@ -112,7 +112,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   });
 
   // ── POST /api/sync-all ───────────────────────────────────────────────────
-  router.post("/sync-all", requireAuth, (_req, res) => {
+  router.post("https://matrix88.onrender.com/sync-all", requireAuth, (_req, res) => {
     try {
       const client = getTcpClient();
       if (!client.isConnected) return res.status(503).json({ error: "Matrix device not connected" });
@@ -124,7 +124,7 @@ module.exports = ({ getTcpClient, persistence, config, requireAuth, requireAdmin
   });
 
   // ── POST /api/feedback ───────────────────────────────────────────────────
-  router.post("/feedback", requireAuth, (req, res) => {
+  router.post("https://matrix88.onrender.com/feedback", requireAuth, (req, res) => {
     try {
       const output = Number(req.body.output);
       if (!isValidPort(output)) return res.status(400).json({ error: "output must be 1–8" });

@@ -20,7 +20,7 @@ module.exports = ({ config, requireAuth, requireAdmin }) => {
   const router = express.Router();
 
   // ── POST /api/auth/login ─────────────────────────────────────────────────
-  router.post("/login", async (req, res) => {
+  router.post("https://matrix88.onrender.com/login", async (req, res) => {
     try {
       const { username, password } = req.body;
       const result = await authService.verifyCredentials(username, password);
@@ -39,12 +39,12 @@ module.exports = ({ config, requireAuth, requireAdmin }) => {
   });
 
   // ── GET /api/auth/me ─────────────────────────────────────────────────────
-  router.get("/me", requireAuth, (req, res) => {
+  router.get("https://matrix88.onrender.com/me", requireAuth, (req, res) => {
     return res.status(200).json({ ok: true, username: req.user.username, role: req.user.role });
   });
 
   // ── POST /api/auth/change-password — admin changes own credentials ───────
-  router.post("/change-password", requireAdmin, async (req, res) => {
+  router.post("https://matrix88.onrender.com/change-password", requireAdmin, async (req, res) => {
     try {
       const { currentPassword, newUsername, newPassword } = req.body;
       if (!currentPassword) return res.status(400).json({ error: "currentPassword required" });
@@ -65,7 +65,7 @@ module.exports = ({ config, requireAuth, requireAdmin }) => {
   });
 
   // ── GET /api/auth/users — list users (admin only) ────────────────────────
-  router.get("/users", requireAdmin, async (_req, res) => {
+  router.get("https://matrix88.onrender.com/users", requireAdmin, async (_req, res) => {
     try {
       const users = await authService.listUsers();
       return res.status(200).json({ ok: true, users });
@@ -75,7 +75,7 @@ module.exports = ({ config, requireAuth, requireAdmin }) => {
   });
 
   // ── POST /api/auth/users — upsert a user (admin only) ───────────────────
-  router.post("/users", requireAdmin, async (req, res) => {
+  router.post("https://matrix88.onrender.com/users", requireAdmin, async (req, res) => {
     try {
       const { username, password, role } = req.body;
       const result = await authService.upsertUser({ username, password, role });
@@ -87,7 +87,7 @@ module.exports = ({ config, requireAuth, requireAdmin }) => {
   });
 
   // ── DELETE /api/auth/users/:uname — delete a user (admin only) ──────────
-  router.delete("/users/:uname", requireAdmin, async (req, res) => {
+  router.delete("https://matrix88.onrender.com/users/:uname", requireAdmin, async (req, res) => {
     try {
       const result = await authService.deleteUser({
         username:           req.params.uname,
