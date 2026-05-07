@@ -287,7 +287,7 @@ async function start() {
 
   // FIX #3: Use PORT variable (reads process.env.PORT for Render)
   server.listen(PORT, () => {
-    console.log(`Backend running → https://matrix88.onrender.com:${PORT}`);
+    console.log(`Backend running → ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     console.log(`Auth: POST /api/auth/login  (admin/admin123  |  user/user123)`);
   });
